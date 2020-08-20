@@ -20,7 +20,7 @@ function fetchByApex(url) {
 }
 
 function fetchByWeb(url) {
-	fetch(url)
+	return fetch(url)
 		.then((response) => {
 			if (response.ok) {
 				return response.json();

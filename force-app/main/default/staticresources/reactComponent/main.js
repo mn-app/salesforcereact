@@ -7947,7 +7947,7 @@ exports = module.exports = __webpack_require__(16)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "button{\r\n    background-color:red;\r\n    border-radius: 10px;\r\n    padding:10px;\r\n}", ""]);
 
 // exports
 
@@ -8560,7 +8560,7 @@ function fetchByApex(url) {
 }
 
 function fetchByWeb(url) {
-	fetch(url).then(function (response) {
+	return fetch(url).then(function (response) {
 		if (response.ok) {
 			return response.json();
 		}
