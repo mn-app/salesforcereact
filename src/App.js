@@ -77,7 +77,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<p>A React Component!</p>
+				<p>Test</p>
 				<button onClick={this.sendMessageExample.bind(this)}>A Button that sends a specific exampleMessage</button>
 				<button onClick={this.fetchData.bind(this)}>Fetch data</button>
 				fetched data:{this.state.fetchedData}
