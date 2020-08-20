@@ -7667,6 +7667,8 @@ var _lightningContainer2 = _interopRequireDefault(_lightningContainer);
 
 __webpack_require__(14);
 
+var _server = __webpack_require__(19);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7762,6 +7764,15 @@ var App = function (_Component) {
 			}, { escape: true });
 		}
 	}, {
+		key: 'fetchDataUnvrsl',
+		value: function fetchDataUnvrsl() {
+			var _this4 = this;
+
+			(0, _server.serverFetch)('https://api.npoint.io/30855e03c0357e27a1c5').then(function (r) {
+				return _this4.setState({ fetched: r });
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -7771,6 +7782,11 @@ var App = function (_Component) {
 					'p',
 					null,
 					'Test'
+				),
+				_react2.default.createElement(
+					'div',
+					null,
+					_server.inSalesforce ? 'In salesforce' : 'in web'
 				),
 				_react2.default.createElement(
 					'button',
@@ -7793,6 +7809,16 @@ var App = function (_Component) {
 						'Fetch data (Apex)'
 					),
 					this.state.fetchedDataApex
+				),
+				_react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.fetchDataUnvrsl.bind(this) },
+						'Fetch data universal'
+					),
+					this.state.fetched
 				)
 			);
 		}
@@ -8488,6 +8514,59 @@ module.exports = function (css) {
 	// send back the fixed css
 	return fixedCss;
 };
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.inSalesforce = undefined;
+exports.serverFetch = serverFetch;
+
+var _lightningContainer = __webpack_require__(13);
+
+var _lightningContainer2 = _interopRequireDefault(_lightningContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var inSalesforce = exports.inSalesforce = !!_lightningContainer2.default;
+
+function serverFetch(url) {
+	if (inSalesforce) {
+		return fetchByApex(url);
+	}
+	return fetchByWeb(url);
+}
+
+function apexPromise(apexName, apexParams) {
+	var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { escape: true };
+
+	return new Promise(function (resolve, reject) {
+		_lightningContainer2.default.callApex(apexName, apexParams, function (result) {
+			return resolve(result);
+		}, config);
+	});
+}
+function fetchByApex(url) {
+	return apexPromise('ApexFetch.ff', url).then(function (result) {
+		return result.replace(/&quot;/g, '"');
+	});
+}
+
+function fetchByWeb(url) {
+	fetch(url).then(function (response) {
+		if (response.ok) {
+			return response.json();
+		}
+	}).then(function (json) {
+		return JSON.stringify(json);
+	});
+}
 
 /***/ })
 /******/ ]);

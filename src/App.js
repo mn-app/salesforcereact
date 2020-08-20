@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LCC from 'lightning-container';
 
 import './App.css';
+import { inSalesforce, serverFetch } from './server';
 
 class App extends Component {
 	constructor(props) {
@@ -74,16 +75,25 @@ class App extends Component {
 		);
 	}
 
+	fetchDataUnvrsl() {
+		serverFetch('https://api.npoint.io/30855e03c0357e27a1c5').then((r) => this.setState({ fetched: r }));
+	}
+
 	render() {
 		return (
 			<div>
 				<p>Test</p>
+				<div>{inSalesforce ? 'In salesforce' : 'in web'}</div>
 				<button onClick={this.sendMessageExample.bind(this)}>A Button that sends a specific exampleMessage</button>
 				<button onClick={this.fetchData.bind(this)}>Fetch data</button>
 				fetched data:{this.state.fetchedData}
 				<div>
 					<button onClick={this.fetchDataApex.bind(this)}>Fetch data (Apex)</button>
 					{this.state.fetchedDataApex}
+				</div>
+				<div>
+					<button onClick={this.fetchDataUnvrsl.bind(this)}>Fetch data universal</button>
+					{this.state.fetched}
 				</div>
 			</div>
 		);
