@@ -1,7 +1,7 @@
 import LCC from 'lightning-container';
 
 console.log('LCC', LCC);
-export const inSalesforce = !!LCC;
+export const inSalesforce = !!LCC.getRESTAPISessionKey();
 
 export function serverFetch(url) {
 	if (inSalesforce) {
