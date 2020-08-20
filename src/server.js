@@ -1,5 +1,6 @@
 import LCC from 'lightning-container';
 
+console.log('LCC', LCC);
 export const inSalesforce = !!LCC;
 
 export function serverFetch(url) {

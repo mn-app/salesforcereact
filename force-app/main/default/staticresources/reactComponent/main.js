@@ -8534,6 +8534,7 @@ var _lightningContainer2 = _interopRequireDefault(_lightningContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+console.log('LCC', _lightningContainer2.default);
 var inSalesforce = exports.inSalesforce = !!_lightningContainer2.default;
 
 function serverFetch(url) {
