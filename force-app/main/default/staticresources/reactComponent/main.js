@@ -7770,7 +7770,7 @@ var App = function (_Component) {
 				_react2.default.createElement(
 					'p',
 					null,
-					'A React Component!'
+					'Test'
 				),
 				_react2.default.createElement(
 					'button',
